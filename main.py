@@ -105,9 +105,8 @@ def plot_pie_chart(probabilities):
     )
     plt.title("Prediction Probability Distribution")
     st.pyplot(plt)
+#  pdf is generated here
 
-
-# Generate PDF report
 def generate_pdf_report(image, prediction_result, confidence, probabilities):
     # Create instance of FPDF class
     pdf = FPDF()
@@ -126,7 +125,6 @@ def generate_pdf_report(image, prediction_result, confidence, probabilities):
     pdf.image(image_path, x=50, y=45, w=100)
     pdf.ln(120)  # Adjust the vertical spacing after the image
 
-    # Prediction result section
     pdf.set_font("Arial", "B", 14)
     pdf.set_text_color(0, 0, 0)  # Black color for text
     pdf.cell(200, 10, txt="Prediction Result", ln=True)
@@ -137,12 +135,10 @@ def generate_pdf_report(image, prediction_result, confidence, probabilities):
     pdf.multi_cell(0, 10, txt=f"Probability of Melanoma: {probabilities[1]:.2f}")
     pdf.ln(10)
 
-    # Add a colored border for the content section
     pdf.set_line_width(1)
     pdf.set_draw_color(255, 182, 193)  # Light pink border for content
     pdf.rect(10, 20, 190, 260)  # Draw border around the content area
 
-    # Add some more detailed styling
     pdf.set_font("Arial", "", 12)
     pdf.set_text_color(0, 0, 0)
     pdf.cell(200, 10, txt="Detailed Explanation", ln=True)
@@ -158,18 +154,15 @@ def generate_pdf_report(image, prediction_result, confidence, probabilities):
     )
     pdf.ln(10)
 
-    # Add footer with page number
     pdf.set_y(-15)
     pdf.set_font("Arial", "I", 8)
     pdf.cell(0, 10, f"Page {pdf.page_no()}", 0, 0, "C")
 
-    # Save PDF
     pdf_output_path = "Melanoma_Prediction_Report.pdf"
     pdf.output(pdf_output_path)
     return pdf_output_path
 
 
-# Streamlit pages
 def login_page():
     st.title("Login Page")
     email = st.text_input("Email")
